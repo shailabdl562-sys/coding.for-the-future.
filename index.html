@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding - The Power of the Future</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- LOGIN / SIGNUP PAGE -->
+  <div class="login-container">
+    <h1 class="login-title">Welcome to <span>Coding Future</span></h1>
+
+    <!-- Login Form -->
+    <form class="login-form">
+      <input type="email" id="loginEmail" placeholder="Enter Gmail" required />
+      <input type="password" id="loginPassword" placeholder="Enter Password" required />
+      <button type="submit" class="login-btn">Login</button>
+      <p class="switch-text">Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+      <p class="error-text" id="errorText"></p>
+    </form>
+
+    <!-- Signup Form -->
+    <form class="signup-form hidden">
+      <input type="email" id="signupEmail" placeholder="Enter Gmail" required />
+      <input type="password" id="signupPassword" placeholder="Create Password" required />
+      <input type="password" id="confirmPassword" placeholder="Confirm Password" required />
+      <button type="submit" class="signup-btn">Sign Up</button>
+      <p class="switch-text">Already have an account? <a href="#" id="show-login">Login</a></p>
+    </form>
+  </div>
+
+  <!-- MAIN SITE -->
+  <div class="main-site hidden">
+    <header class="navbar">
+      <h2 class="logo">💻 Coding Future</h2>
+      <nav>
+        <ul>
+          <li><a href="#contents">Contents</a></li>
+          <li><a href="#build">Build</a></li>
+          <li><a href="#" id="logoutBtn" class="logout">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- CONTENTS -->
+    <section id="contents" class="hero">
+      <div class="content">
+        <h1 class="main-title">Coding the power of future!!!</h1>
+        <p class="intro">Coding is the language of innovation — the tool that turns imagination into reality.</p>
+
+        <div class="subheadings">
+          <h2>1. Coding Develops Problem-Solving Skills</h2>
+          <p>When you code, you learn to break problems into smaller pieces and solve them with your intelligence.</p>
+
+          <h2>2. Coding Powers Modern Technology</h2>
+          <p>Every app, website, and smart device is built with code — it’s the backbone of our digital world.</p>
+
+          <h2>3. Coding Expands Career Opportunities</h2>
+          <p>From engineering to IT, coding opens the door to endless industries and possibilities.</p>
+
+          <h2>4. Coding Encourages Creativity</h2>
+          <p>Whether you’re building games, websites, or AI, coding lets you bring your ideas to life.</p>
+
+          <h2>5. Coding Shapes the Future</h2>
+          <p>The future belongs to those who can create technology — and coding makes that possible.</p>
+
+          <h1>With my pleasure, I want you to know this is my first ever website!!</h1>
+          <h2>THANK YOU!!!</h2>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUILD SECTION -->
+    <section id="build" class="build-section">
+      <h1>Build with HTML & CSS</h1>
+      <p>Here’s a simple example you can learn from:</p>
+      <div class="code-example">
+        <pre><code>&lt;h1&gt;Hello World&lt;/h1&gt;
+&lt;p&gt;This is my first webpage.&lt;/p&gt;</code></pre>
+        <iframe class="live-demo" srcdoc="
+          <h1 style='color:#00e5ff;text-align:center;'>Hello World</h1>
+          <p style='text-align:center;color:#ffca28;'>This is my first webpage.</p>
+        "></iframe>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>© 2025 Coding Future | Built by You 💻</p>
+    </footer>
+  </div>
+
+  <script>
+    const loginForm = document.querySelector('.login-form');
+    const signupForm = document.querySelector('.signup-form');
+    const loginContainer = document.querySelector('.login-container');
+    const mainSite = document.querySelector('.main-site');
+    const errorText = document.getElementById('errorText');
+
+    // Show signup form
+    document.getElementById('show-signup').onclick = e => {
+      e.preventDefault();
+      loginForm.classList.add('hidden');
+      signupForm.classList.remove('hidden');
+      errorText.textContent = '';
+    };
+
+    // Show login form
+    document.getElementById('show-login').onclick = e => {
+      e.preventDefault();
+      signupForm.classList.add('hidden');
+      loginForm.classList.remove('hidden');
+    };
+
+    // Signup logic
+    signupForm.onsubmit = e => {
+      e.preventDefault();
+      const email = document.getElementById('signupEmail').value;
+      const pass = document.getElementById('signupPassword').value;
+      const confirm = document.getElementById('confirmPassword').value;
+
+      if (pass !== confirm) {
+        alert('Passwords do not match!');
+        return;
+      }
+
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userPassword', pass);
+      alert('✅ Account created! You can now log in.');
+      signupForm.classList.add('hidden');
+      loginForm.classList.remove('hidden');
+    };
+
+    // Login logic
+    loginForm.onsubmit = e => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value;
+      const pass = document.getElementById('loginPassword').value;
+      const savedEmail = localStorage.getItem('userEmail');
+      const savedPass = localStorage.getItem('userPassword');
+
+      if (email === savedEmail && pass === savedPass && email) {
+        loginContainer.classList.add('hidden');
+        mainSite.classList.remove('hidden');
+        document.body.classList.add('main-bg');
+      } else {
+        errorText.textContent = '❌ Invalid Gmail or Password!';
+      }
+    };
+
+    // Logout logic
+    document.getElementById('logoutBtn').onclick = e => {
+      e.preventDefault();
+      mainSite.classList.add('hidden');
+      loginContainer.classList.remove('hidden');
+      document.body.classList.remove('main-bg');
+      loginForm.reset();
+    };
+  </script>
+</body>
+</html>
